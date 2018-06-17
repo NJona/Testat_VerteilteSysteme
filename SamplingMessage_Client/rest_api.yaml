@@ -1,0 +1,161 @@
+swagger: '2.0'
+info:
+  description: Sampling Messages as a client <-> server application.
+  version: 1.0.0
+  title: Sampling Messages
+host: 127.0.0.1(localhost)
+basePath: /v1
+tags:
+  - name: sampling_message
+    description: Sampling Message object
+schemes:
+  - http
+paths:
+  /sampling_message:
+    post:
+      tags:
+        - sampling_message
+      summary: Add a new Sampling Message.
+      description: ''
+      operationId: CREATE_SAMPLING_MESSAGE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Sampling Message that shall be added
+          required: true
+          schema:
+            $ref: ''
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid input
+        '409':
+          description: 'Conflict: Dataset already exists'
+  /sampling_message/sampling_message_name:
+    put:
+      tags:
+        - sampling_message
+      summary: Update content of sampling message.
+      description: ''
+      operationId: WRITE_SAMPLING_MESSAGE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: sampling_message_name
+          description: Sampling Message that shall be updated
+          required: true
+          schema:
+            $ref: ''
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid input
+        '404':
+          description: Sampling Message not found
+        '423':
+          description: Sampling Message is Locked
+    patch:
+      tags:
+        - sampling_message
+      summary: Clear content of Sampling Message.
+      description: ''
+      operationId: CLEAR_SAMPLING_MESSAGE
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: sampling_message_name
+          description: Sampling Message whichs content shall be cleared
+          required: true
+          schema:
+            $ref: ''
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Invalid input
+        '404':
+          description: Sampling Message not found
+        '423':
+          description: Sampling Message is Locked
+    delete:
+      tags:
+        - sampling_message
+      summary: Delete Sampling Message.
+      description: ''
+      operationId: DELETE_SAMPLING_MESSAGE
+      consumes:
+        - application/json
+      produces:
+        - ''
+      parameters:
+        - in: body
+          name: sampling_message_name
+          description: Sampling Message that shall be deleted
+          required: true
+          schema:
+            $ref: ''
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Sampling Message not found
+        '405':
+          description: Invalid input
+        '423':
+          description: Sampling Message is Locked
+  /sampling_message/content/sampling_message_name:
+    get:
+      tags:
+        - sampling_message
+      summary: Get Sampling Message content by Name
+      description: Returns Sampling Message content and validity
+      operationId: READ_SAMPLING_MESSAGE
+      produces:
+        - application/json
+      parameters:
+        - name: sampling_message_name
+          in: path
+          description: Name of Sampling Message to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Sampling Message not found
+  /sampling_message/status/sampling_message_name:
+    get:
+      tags:
+        - sampling_message
+      summary: Get Sampling Message status by Name
+      description: Returns Sampling Message status and validity
+      operationId: GET_SAMPLING_MESSAGE_STATUS
+      produces:
+        - application/json
+      parameters:
+        - name: sampling_message_name
+          in: path
+          description: Name of Sampling Message to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Sampling Message not found
